@@ -1,6 +1,5 @@
-
-
 package org.yourcompany.calculadora;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -11,6 +10,9 @@ package org.yourcompany.calculadora;
 public class Calculadora {
 
     public static void main(String[] args) {
+
+        DecimalFormat df = new DecimalFormat("#.00");
+
 
         // Exemples de crida per al mètode nombreDigits
         System.out.println("Nombre de dígits de 1234: " + nombreDigits(1234));
@@ -38,7 +40,7 @@ public class Calculadora {
         // System.out.println("5 elevat a la potència 4: " + calcularPotencia(5, 4));
         // System.out.println("3 elevat a la potència 5: " + calcularPotencia(3, 5));
 
-       
+       System.out.println("Precio entrada cine en fin de semana con Carnet Jove: "+df.format(precioEntradaCine(5, true, true))+"€");
         
     }
 
@@ -81,4 +83,19 @@ public class Calculadora {
         return sumatori;
     }
 
+    /**
+     * Retorna 
+     * Funciona per a nombres positius i negatius.
+     *
+     * @param nombre Número més allunyat de 0 dels que sumarem
+     * @return El sumatori dels nombres des de el {@code nombre} fins al 0
+     */
+    public static Double precioEntradaCine(double precioBase, boolean finDeSemana, boolean esJove) {
+        double precioFinal, porcentajeAumentoCap=0.15, porcentajeDescuentoJove=0.15;
+        precioFinal = precioBase;
+        if (finDeSemana) { precioFinal += precioFinal * porcentajeAumentoCap; }
+        if (esJove) {precioFinal -= precioFinal * porcentajeDescuentoJove; }
+        return precioFinal;
+    }
+    
 }
