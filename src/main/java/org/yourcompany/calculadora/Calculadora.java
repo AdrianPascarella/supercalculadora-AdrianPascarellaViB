@@ -19,9 +19,9 @@ public class Calculadora {
         System.out.println("Nombre de dígits de 0: " + nombreDigits(0));
 
         // Exemples de crida per al mètode sumaPrimersNumeros
-        // System.out.println("Suma dels primers 5 números: " + sumaPrimersNumeros(5));
-        // System.out.println("Suma dels primers 10 números: " + sumaPrimersNumeros(10));
-        // System.out.println("Suma dels primers 15 números: " + sumaPrimersNumeros(15));
+        System.out.println("Suma dels primers -5 números: " + sumaPrimersNumeros(-5));
+        System.out.println("Suma dels primers 10 números: " + sumaPrimersNumeros(10));
+        System.out.println("Suma dels primers 15 números: " + sumaPrimersNumeros(15));
 
         // Exemples de crida per al mètode calcularFactorial
         // System.out.println("Factorial de 5: " + calcularFactorial(5));
@@ -62,5 +62,23 @@ public class Calculadora {
         return comptador;
     }
 
+    /**
+     * Retorna la suma dels primers n números positius o negatius.
+     * Funciona per a nombres positius i negatius.
+     *
+     * @param nombre Número més allunyat de 0 dels que sumarem
+     * @return El sumatori dels nombres des de el {@code nombre} fins al 0
+     */
+    public static int sumaPrimersNumeros(int nombre) {
+        int comptador, sumatori = 0;
+        if (nombre<0) {comptador=nombre-1;}
+        else {comptador=nombre+1;}
+        while (comptador != 0) {
+            if (nombre<0) {comptador++;}
+            else {comptador--;}
+            sumatori += comptador;
+        }
+        return sumatori;
+    }
 
 }
