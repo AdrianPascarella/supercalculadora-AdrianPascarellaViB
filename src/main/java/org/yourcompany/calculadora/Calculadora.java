@@ -1,17 +1,14 @@
 package org.yourcompany.calculadora;
-import java.text.DecimalFormat;
 
 /**
  *
- * @author Posa el teu nom
+ * @author Adrian Pascarella
  */
 
 
 public class Calculadora {
 
     public static void main(String[] args) {
-
-        DecimalFormat df = new DecimalFormat("#.00");
 
 
         // Exemples de crida per al mètode nombreDigits
@@ -26,21 +23,19 @@ public class Calculadora {
         System.out.println("Suma dels primers 15 números: " + sumaPrimersNumeros(15));
 
         // Exemples de crida per al mètode calcularFactorial
-        // System.out.println("Factorial de 5: " + calcularFactorial(5));
-        // System.out.println("Factorial de 7: " + calcularFactorial(7));
-        // System.out.println("Factorial de 10: " + calcularFactorial(10));
+        System.out.println("Factorial de 5: " + calcularFactorial(5));
+        System.out.println("Factorial de -7: " + calcularFactorial(-7));
+        System.out.println("Factorial de 10: " + calcularFactorial(10));
 
         // Exemples de crida per al mètode sumaQuadrats
-        // System.out.println("Suma dels quadrats dels primers 3 números: " + sumaQuadrats(3));
-        // System.out.println("Suma dels quadrats dels primers 5 números: " + sumaQuadrats(5));
-        // System.out.println("Suma dels quadrats dels primers 7 números: " + sumaQuadrats(7));
+        System.out.println("Suma dels quadrats dels primers -3 números: " + sumaQuadrats(-3));
+        System.out.println("Suma dels quadrats dels primers 5 números: " + sumaQuadrats(5));
+        System.out.println("Suma dels quadrats dels primers 7 números: " + sumaQuadrats(7));
 
         // Exemples de crida per al mètode calcularPotencia
-        // System.out.println("2 elevat a la potència 3: " + calcularPotencia(2, 3));
-        // System.out.println("5 elevat a la potència 4: " + calcularPotencia(5, 4));
-        // System.out.println("3 elevat a la potència 5: " + calcularPotencia(3, 5));
-
-       System.out.println("Precio entrada cine en fin de semana con Carnet Jove: "+df.format(precioEntradaCine(5, true, true))+"€");
+        System.out.println("2 elevat a la potència 3: " + calcularPotencia(2, 3));
+        System.out.println("5 elevat a la potència 4: " + calcularPotencia(5, 4));
+        System.out.println("3 elevat a la potència 5: " + calcularPotencia(3, 5));
         
     }
 
@@ -73,29 +68,83 @@ public class Calculadora {
      */
     public static int sumaPrimersNumeros(int nombre) {
         int comptador, sumatori = 0;
-        if (nombre<0) {comptador=nombre-1;}
-        else {comptador=nombre+1;}
+        boolean positiu;
+        positiu = (nombre>=0) ? true:false;
+        if (!positiu) {nombre*=-1;}
+        comptador=nombre+1;
         while (comptador != 0) {
-            if (nombre<0) {comptador++;}
-            else {comptador--;}
+            comptador--;
             sumatori += comptador;
+        }
+        if (!positiu) {return sumatori*=-1;}
+        return sumatori;
+    }
+
+    /**
+     * Retorna el producte factorial del número.
+     * Funciona per a nombres positius i negatius.
+     *
+     * @param nombre Número del que calcularem el producte factorial
+     * @return La suma factorial del nombre {@code nombre}
+     */
+    public static int calcularFactorial(int nombre) {
+        int actual, factorial;
+        boolean positiu;
+        positiu = (nombre>=0) ? true:false;
+        if (!positiu) {nombre*=-1;}
+        factorial=nombre;
+        actual=nombre;
+        while (actual != 1) {
+            actual--;
+            factorial*=actual;
+        }
+        if (!positiu) {
+            return factorial*=-1;
+        }
+        return factorial;
+    }
+
+    /**
+     * Retorna el sumatori dels quadrats dels n primers números.
+     * Funciona per a nombres positius i negatius, el resultat sempre es positiu.
+     *
+     * @param nombre Número del que calcularem el sumatori de quadrats
+     * @return El sumatori dels quadrats del nombre {@code nombre}
+     */
+    public static int sumaQuadrats(int nombre) {
+        int comptador, sumatori = 0;
+        boolean positiu;
+        positiu = (nombre>=0) ? true:false;
+        if (!positiu) {nombre*=-1;}
+        comptador=nombre+1;
+        while (comptador != 0) {
+            comptador--;
+            sumatori += comptador*comptador;
         }
         return sumatori;
     }
 
     /**
-     * Retorna 
-     * Funciona per a nombres positius i negatius.
+     * Retorna el resultat de elevar una base a un exponent.
+     * Funciona per a nombres positius.
      *
-     * @param nombre Número més allunyat de 0 dels que sumarem
-     * @return El sumatori dels nombres des de el {@code nombre} fins al 0
+     * @param base Número que serà multiplicat per si mateix
+     * @param exponent Número de vegades que es repeteix la multiplicació
+     * @return El producte final de elevar la base {@code base} a l'exponent {@code exponent}
      */
-    public static Double precioEntradaCine(double precioBase, boolean finDeSemana, boolean esJove) {
-        double precioFinal, porcentajeAumentoCap=0.15, porcentajeDescuentoJove=0.15;
-        precioFinal = precioBase;
-        if (finDeSemana) { precioFinal += precioFinal * porcentajeAumentoCap; }
-        if (esJove) {precioFinal -= precioFinal * porcentajeDescuentoJove; }
-        return precioFinal;
+    public static int calcularPotencia(int base, int exponent) {
+        if (exponent == 0) {
+            return 1;
+        }
+        int resultado = base;
+        for (int i = 1; i < exponent; i++) {
+            int sumaParcial = 0;
+            for (int j = 0; j < base; j++) {
+                sumaParcial += resultado;
+            }
+            resultado = sumaParcial;
+        }
+        return resultado;
     }
-    
+
 }
